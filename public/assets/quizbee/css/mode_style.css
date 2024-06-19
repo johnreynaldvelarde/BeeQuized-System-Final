@@ -1,0 +1,130 @@
+
+body{
+    font-family: "Poppins", sans-serif;
+}  
+.spinner-center {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+   }
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.list-group-item.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.bg-success {
+    background-color: #28a745 !important; /* Adjust the green color as needed */
+}
+
+.border-primary{
+    border: 2px solid #28a745; /* Adjust border color as needed */
+}
+
+.correct-answer {
+    background-color: #d4edda; /* Light green */
+    border-color: #c3e6cb; /* Darker green border */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1050; /* Ensure overlay is above modal */
+    display: none; /* Initially hidden */
+}
+
+.btn-outline-light-custom {
+    color: white;
+    border-color: white;
+    background-color: transparent; /* Set background to transparent */
+}
+
+.btn-outline-light-custom:hover {
+    color: black; /* Change text color to grey on hover */
+    background-color: white; /* Change background color to white on hover */
+}
+
+ /* Custom styling for the choices and labels */
+ .choice {
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    border: 2px solid transparent; /* Ensure all choices have a border */
+    padding: 10px; /* Adjust padding as needed */
+    border-radius: 0.25rem; /* Rounded corners for choices */
+}
+
+.choice-input:checked + .choice-label {
+    background-color    : #198754;
+    color: white;
+    border-color: #198754;
+    
+}
+
+.choice:hover {
+    background-color: #198754;
+    border-color: #28a745;
+}
+
+/* Custom selected state */
+.choice.selected {
+    background-color: #198754 !important; /* Override default background */
+    color: white !important; /* Override default color */
+    border-color: #ffffff !important; /* Override default border color */
+}
+
+.modal-header.correct {
+    background: linear-gradient(to right, #4caf50, #2196f3); /* Green to blue gradient */
+    color: white;
+}
+
+.modal-header.wrong {
+    background: linear-gradient(to right, #f44336, #ff9800);
+    color: white;
+}
+
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 1rem);
+}
+
+/* Change the close button color to white */
+.modal-header .btn-close {
+    filter: invert(1); /* This inverts the color of the close button icon */
+}
+
+
+.responsive-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Or `object-fit: contain` if you want the whole image to be visible */
+}
+
+/* Optional: Responsive adjustments */
+@media (max-width: 768px) {
+    .image-container {
+        width: 80vw;
+        height: 40vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .image-container {
+        width: 90vw;
+        height: 30vh;
+    }
+}

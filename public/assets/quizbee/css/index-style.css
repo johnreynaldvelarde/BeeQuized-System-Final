@@ -1,0 +1,333 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+h2 {
+  margin-top: 40px;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+@keyframes slideInFade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.containers {
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Shadow properties */
+  border-radius: 10px; /* Rounded corners */
+  padding: 40px; /* Padding inside the container */
+  width: 700px; /* Adjust the width as needed */
+  max-width: auto; /* Set maximum width to avoid overflow on smaller screens */
+  height: auto; /* Let the height adjust based on content */
+}
+
+.button {
+  background: #3b91ca;
+  padding: 10px 15px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.2);
+  margin-top: 25px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.button:hover {
+  color: #fff;
+  background: #61e27d;
+}
+
+.button-code {
+  background: #3b91ca;
+  padding: 10px 15px;
+  color: #fff;
+  font-weight: 500;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.2);
+  margin-top: 25px;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.button-code:hover {
+  color: #fff;
+  background: #61e27d;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  z-index: 1000;
+  animation: slideInFade 0.5s ease forwards;
+}
+
+.popup-content {
+  height: 530px;
+  width: 550px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  position: relative;
+  text-align: center;
+}
+.close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: #fff;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  box-shadow: 6px 6px 29px -4px rgba(0, 0, 0, 0.75);
+  cursor: pointer;
+}
+
+.button-box {
+  width: 221px;
+  margin: 35px auto;
+  position: relative;
+  box-shadow: 0 0 20px 9px #ff61241f;
+  border-radius: 30px;
+}
+
+.toggle-btn {
+  padding: 10px 29px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  outline: none;
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  color: #5e5e5e;
+}
+
+.toggle-btn.active {
+  color: white !important;
+}
+
+#btn {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 110px;
+  height: 100%;
+  background: linear-gradient(to right, #93e6c1, #50a7c2);
+  border-radius: 30px;
+  transition: 0.5s;
+}
+
+.input-login {
+  margin: 50px;
+}
+.input-register {
+  margin: 0px;
+}
+
+.input-group1 {
+  top: 180px;
+  position: absolute;
+  width: 280px;
+  transition: 0.5s;
+}
+
+.input-field {
+  width: 100%; /* Take up full width of the container */
+  padding: 10px; /* Add padding to the input field */
+  margin-bottom: 30px; /* Add some space between input fields */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 5px; /* Add rounded corners */
+  font-size: 20px;
+}
+
+.input-popup {
+  margin: 10px;
+}
+
+.login-btn {
+  width: 300px;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to right, #93e6c1, #50a7c2);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+  margin-top: 40px;
+  font-size: 20px;
+  color: white;
+  font-weight: bolder;
+}
+
+.register-btn {
+  width: 300px;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to right, #93e6c1, #50a7c2);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+  margin-top: 25px;
+  font-size: 20px;
+  color: white;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.submit-btn1 {
+  width: 85%;
+  padding: 10px 30px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background: linear-gradient(to right, #b7f8db, #50a7c2);
+  border: 0;
+  outline: none;
+  border-radius: 30px;
+  margin-top: 143px;
+}
+
+#login {
+  left: 50px;
+}
+
+#participant {
+  left: 450px;
+}
+
+.or {
+  margin: 0 15px;
+}
+
+input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  margin-right: 10px;
+}
+input[type="email"] {
+  width: 300px;
+  padding: 10px;
+  margin-right: 10px;
+}
+input[type="password"] {
+  width: 300px;
+  padding: 10px;
+  margin-right: 10px;
+}
+.error {
+  background: #f2dede;
+  color: #a94442;
+  padding: 10px;
+  width: 95%;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+.success {
+  background: #d4edda;
+  color: #40754c;
+  padding: 10px;
+  width: 95%;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+
+
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap");
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Quicksand", sans-serif;
+}
+
+
+ul{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+ul li{
+    cursor: pointer;
+    list-style: none;
+    display: inline-block;
+    background: #ebe1fa;
+    color: rgb(61, 61, 61);
+    font-size: 50px;
+    width: 70px;
+    height: 110px;
+    line-height: 110px;
+    margin-left: -7px;
+    animation: animate 1s linear infinite;
+    animation-delay: calc(var(--i) * 0.1s);
+}
+
+@keyframes animate{
+    0%{
+        transform: translateY(0) scaleX(1);
+        box-shadow: 0 0 0 #2d2f5a;
+    }
+    50%{
+        transform: translateY(-70px) scaleX(0.7);
+        box-shadow: 0 30px 15px #2d2f5a;
+    }
+    100%{
+        transform: translateY(0) scaleX(1);
+        box-shadow: 0 0 0 #2d2f5a;
+    }
+}
+
+
+.header {
+  margin-bottom: 200px;
+}
+
+.input-group {
+
+  margin-top: 50px;
+}
+
+.fade-list, .fade-form {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-out {
+  opacity: 0;
+}
+
+.fade-in {
+  opacity: 1;
+}
