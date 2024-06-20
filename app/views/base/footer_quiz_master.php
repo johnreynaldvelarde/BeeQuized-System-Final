@@ -16,7 +16,6 @@
 
     //var io = io('http://localhost:3000', {transports: ['websocket', 'polling', 'flashsocket'] });
 
-    
 
     function validateInput(event) {
         const input = event.target;
@@ -79,12 +78,14 @@
                     }, 1000);
 
                 } else {
-                    //alert('Error: ' + response.error);
-                    document.getElementById('errorMessage').innerHTML = 'Error: ' + response.error;
+
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('errorMessage').innerHTML = response.error;
                     $('#errorModal').modal('show');
                 }
             } else {
                 //alert('Error saving quiz master name.');
+                document.getElementById('loading').style.display = 'none';
                 document.getElementById('errorMessage').innerHTML = 'Error saving quiz master name.';
                 $('#errorModal').modal('show');
             }

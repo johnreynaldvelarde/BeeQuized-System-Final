@@ -8,6 +8,14 @@
     <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/popper.min.js"></script>
     <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/socket/socket.io.js"></script>
 
+    <!-- Include jsPDF for PDF generation -->
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/jspdf.umd.min.js"></script>
+
+    <!-- Include xlsx.full.min.js for Excel generation -->
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
+
 <script>
     
 
@@ -50,6 +58,7 @@
                         displayErrorMessage(response.error);
                     } else {
                         displayTeams(response);
+                        displayTeamsScoreLeaderBoard(response);
                     }
                 } else {
                     console.error('Request failed with status:', xhr.status);
@@ -474,5 +483,132 @@
 
             xhr.send();
         }
+
+        $(document).ready(function() {
+
+            // Function to show the leaderboard modal
+            function showLeaderboardModal() {
+                $('#leaderboardModal').modal('show');
+            }
+
+            // Function to export table to Excel
+            function exportToExcel() {
+                const wb = XLSX.utils.book_new();
+                const ws = XLSX.utils.table_to_sheet(document.getElementById('leaderboardTable'));
+                XLSX.utils.book_append_sheet(wb, ws, 'Leaderboard');
+                XLSX.writeFile(wb, 'leaderboard.xlsx');
+            }
+
+            // Bind click event to the "Export as Excel" button
+            $('#exportExcelBtn').on('click', function() {
+                exportToExcel();
+            });
+
+            // Bind click event to the "Show Leaderboard" button
+            $('#showLeaderboardBtn').on('click', function() {
+                showLeaderboardModal();
+            });
+
+            // Event listener for the Show Leaderboard button outside of document.ready
+            $('.btn-show-leaderboard').click(function() {
+                showLeaderboardModal();
+            });
+        });
+
+        function displayTeamsScoreLeaderBoard(teams) {
+            const leaderboardTable = document.getElementById('leaderboardTable');
+            const tbody = leaderboardTable.querySelector('tbody');
+
+            // Clear previous content
+            tbody.innerHTML = '';
+
+            teams.forEach((team, index) => {
+                const totalScore = team.total_score !== undefined ? team.total_score : 0;
+
+                // Create a new table row (tr) for each team
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <th scope="row">${index + 1}</th>
+                    <td>${team.team_name}</td>
+                    <td>${totalScore}</td>
+                `;
+
+                // Append the row to the tbody of the leaderboard table
+                tbody.appendChild(row);
+            });
+
+            // Show the leaderboard modal if it's hidden
+            $('#leaderboardModal').modal('show');
+        }
+
+        // Function to handle showing the leaderboard modal
+        function showLeaderboard() {
+            $('#leaderboardModal').modal('show'); // Show the leaderboard modal
+        }
+
+        // Event listener for the Show Leaderboard button
+        $(document).ready(function() {
+            $('.btn-show-leaderboard').click(function() {
+                showLeaderboard();
+            });
+        });
+
+            // Assign jsPDF if it's not defined
+        if (!window.jsPDF && window.jspdf) {
+            window.jsPDF = window.jspdf.jsPDF;
+        }
+
+        // Function to export table to PDF
+        function exportToPDF() {
+            const doc = new jsPDF();
+            doc.autoTable({ html: '#leaderboardTable' });
+            doc.save('leaderboard.pdf');
+        }
+        
+
+        // Bind click event to the "Export as PDF" button
+        $(document).ready(function() {
+            $('#exportPdfBtn').on('click', function() {
+                exportToPDF();
+            });
+        });
+
+        function fetchUpdateQuizEvent() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', window.location.href + '?action=update_quizevent', true); 
+
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.error) {
+                        console.error('Error updating quiz event:', response.error);
+                    } else if (response.success) {
+
+                        console.log('Quiz event status updated successfully');
+
+                        window.location.href = "<?php echo ROOT . 'quiz_master'; ?>";
+
+                    } else {
+                        console.error('Unexpected response:', response);
+                        // Handle unexpected response
+                    }
+                } else {
+                    console.error('Request failed with status:', xhr.status);
+                }
+            };
+
+            xhr.onerror = function() {
+                console.error('Request failed');
+            };
+
+            xhr.send();
+        }
+
+
+        document.getElementById('finishEventBtn').addEventListener('click', function() {
+            fetchUpdateQuizEvent();
+        });
+
+        
 </script>
 </html>

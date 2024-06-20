@@ -29,10 +29,10 @@
             <!-- Button Row -->
             <div class="row mt-3 justify-content-end">
                 <div class="col-md-auto">
-                    <button class="btn btn-outline-light-custom btn-block">Show Leaderboard</button>
+                    <button class="btn btn-outline-light-custom btn-block btn-show-leaderboard">Show Leaderboard</button>
                 </div>
                 <div class="col-md-auto">
-                    <button class="btn btn-outline-light-custom btn-block">Finish the Event</button>
+                    <button id="finishEventBtn" class="btn btn-outline-light-custom btn-block">Finish the Event</button>
                 </div>
             </div>
 
@@ -78,6 +78,40 @@
         </div>
     </div>
 </div>
+
+<!-- Leaderboard Modal -->
+<div class="modal fade" id="leaderboardModal" tabindex="-1" role="dialog" aria-labelledby="leaderboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="leaderboardModalLabel">Leaderboards</h5>
+                
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-success me-2" id="exportPdfBtn">Export as PDF</button>
+                    <button class="btn btn-primary " id="exportExcelBtn">Export as Excel</button>
+                </div>
+                <table id="leaderboardTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Team Name</th>
+                            <th scope="col">Total Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample leaderboard rows -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="overlay"></div>
 

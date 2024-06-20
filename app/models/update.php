@@ -58,4 +58,21 @@ class Update {
         return $result; 
     }
 
+    public function update_quizevent($event_id){
+        $DB = new Database();
+    
+        // Update query
+        $query = "UPDATE Quiz_Event SET status = 3 WHERE id = :event_id";
+        $params = [':event_id' => $event_id];
+    
+        // Execute the update query
+        $result = $DB->write($query, $params);
+
+        // Unset the event_id from session
+        unset($_SESSION['event_id']);
+    
+        return $result; 
+    }
+    
+
 }

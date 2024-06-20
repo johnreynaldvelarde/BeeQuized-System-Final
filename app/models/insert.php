@@ -9,7 +9,7 @@ class Insert {
         if (isset($POST["teamName"]) && !empty($POST["teamName"]) && isset($_SESSION['event_id'])) {
           
             $arr['team_name'] = $POST['teamName'];
-            $arr['event_id'] = $_SESSION['event_id']; // Assuming event_id is stored in session
+            $arr['event_id'] = $_SESSION['event_id']; 
 
 
             // Check if team name already exists for the event
@@ -29,13 +29,11 @@ class Insert {
             $result = $DB->write($query, $arr);
 
             if ($result) {
-                // Get the last inserted team ID
+
                 $team_id = $DB->lastInsertId();
 
-                // Store team_id in the session
                 $_SESSION['team_id'] = $team_id;
 
-                // Insert team members
                 if (isset($POST['members']) && is_array($POST['members'])) {
                     foreach ($POST['members'] as $member) {
                         $memberArr = [
@@ -59,6 +57,7 @@ class Insert {
         }
     }
 
+    /*
     public function set_quizmaster($POST){
 
         $DB = new Database();
@@ -81,15 +80,128 @@ class Insert {
                 echo json_encode(["success" => true]);
                 return;
             } else {
-                echo json_encode(["success" => false, "error" => "Team creation failed. Try again."]);
+                echo json_encode(["success" => false, "error" => "Quizmaster creation failed. Try again."]);
                 return;
             }
         }
         else {
-            echo json_encode(["success" => false, "error" => "Team name is required or event session expired."]);
+            echo json_encode(["success" => false, "error" => "Quizmaster name is required or event session expired."]);
             return;
         }
     }
+    */
+
+    /*
+    public function set_quizmaster($POST){
+
+        $DB = new Database();
+        $_SESSION['error'] = "";
+    
+        if (isset($POST["quizmasterName"]) && !empty($POST["quizmasterName"]) && isset($_SESSION['event_id'])){
+    
+            // Check if a quizmaster is already assigned to the event
+            $query_check = "SELECT id FROM Quiz_Master WHERE event_id = :event_id LIMIT 1";
+            $params_check = [':event_id' => $_SESSION['event_id']];
+            $existing_quizmaster = $DB->read($query_check, $params_check);
+    
+            if ($existing_quizmaster) {
+                // Quizmaster already assigned
+                echo json_encode(["success" => false, "error" => "Quizmaster is already assigned to this event."]);
+                return;
+            }
+    
+            // Proceed to insert new quizmaster
+            $arr['quizmaster_name'] = $POST['quizmasterName'];
+            $arr['event_id'] = $_SESSION['event_id'];
+            $arr['url_address'] = get_random_string_max(60);
+    
+            $query_insert = "INSERT INTO Quiz_Master (event_id, quizmaster_name, url_address) 
+                             VALUES (:event_id, :quizmaster_name, :url_address)";
+    
+            $result = $DB->write($query_insert, $arr);
+    
+            if ($result) {
+                echo json_encode(["success" => true]);
+                return;
+            } else {
+                echo json_encode(["success" => false, "error" => "Quizmaster creation failed. Try again."]);
+                return;
+            }
+        } else {
+            echo json_encode(["success" => false, "error" => "Quizmaster name is required or event session expired."]);
+            return;
+        }
+    }
+    */
+
+    public function set_quizmaster($POST) {
+        $DB = new Database();
+        $_SESSION['error'] = "";
+    
+        // Check if required POST data and event_id session are set
+        if (isset($POST["quizmasterName"]) && !empty($POST["quizmasterName"]) && isset($_SESSION['event_id'])) {
+    
+            // Check current status of the Quiz Event
+            $query_check_event = "SELECT status FROM Quiz_Event WHERE id = :event_id";
+            $params_check_event = [':event_id' => $_SESSION['event_id']];
+            $event_status = $DB->read($query_check_event, $params_check_event);
+    
+            if (!$event_status) {
+                // Event not found or database error
+                $_SESSION['error'] = "Quiz Event not found or database error.";
+                echo json_encode(["success" => false, "error" => $_SESSION['error']]);
+                return;
+            }
+    
+            // Check if the event status allows setting a quizmaster
+            $allowed_statuses = [0, 1]; // Add more statuses as needed
+            if (!in_array($event_status[0]->status, $allowed_statuses)) {
+                // Event status does not allow setting a quizmaster
+                if ($event_status[0]->status == 0) {
+                    $_SESSION['error'] = "Cannot set quizmaster. Quiz Event is in preparation.";
+                } else if ($event_status[0]->status == 3) {
+                    $_SESSION['error'] = "Cannot set quizmaster. Quiz Event is finished.";
+                } else {
+                    $_SESSION['error'] = "Cannot set quizmaster. Event status does not allow this action.";
+                }
+                echo json_encode(["success" => false, "error" => $_SESSION['error']]);
+                return;
+            }
+    
+            // Check if a quizmaster is already assigned to the event
+            $query_check = "SELECT id FROM Quiz_Master WHERE event_id = :event_id LIMIT 1";
+            $existing_quizmaster = $DB->read($query_check, $params_check_event);
+    
+            if ($existing_quizmaster) {
+                // Quizmaster already assigned
+                echo json_encode(["success" => false, "error" => "Quizmaster is already assigned to this event."]);
+                return;
+            }
+    
+            // Proceed to insert new quizmaster
+            $arr['quizmaster_name'] = $POST['quizmasterName'];
+            $arr['event_id'] = $_SESSION['event_id'];
+            $arr['url_address'] = get_random_string_max(60);
+    
+            $query_insert = "INSERT INTO Quiz_Master (event_id, quizmaster_name, url_address) 
+                             VALUES (:event_id, :quizmaster_name, :url_address)";
+    
+            $result = $DB->write($query_insert, $arr);
+    
+            if ($result) {
+                echo json_encode(["success" => true]);
+                return;
+            } else {
+                echo json_encode(["success" => false, "error" => "Quizmaster creation failed. Try again."]);
+                return;
+            }
+        } else {
+            echo json_encode(["success" => false, "error" => "Quizmaster name is required or event session expired."]);
+            return;
+        }
+    }
+    
+    
 
     public function set_category($POST) {
         $DB = new Database();
@@ -116,7 +228,6 @@ class Insert {
         }
     }
 
-    // for set team score and update question status
     
     public function set_team_score($POST) {
         $DB = new Database();
@@ -208,44 +319,6 @@ class Insert {
             return ['success' => false, 'error' => 'Please provide all required fields.'];
         }
     }
-    
-
-    /*
-    public function register($POST) {
-        $DB = new Database();
-
-        if (isset($POST['username']) && isset($POST['email']) && isset($POST['password'])) {
-            $username = $POST['username'];
-            $email = $POST['email'];
-            $password = $POST['password'];
-
-            // Hash the password for storage
-            $hashed_password = md5($password); // Consider using stronger hashing methods
-
-            $query = "INSERT INTO User_Account (username, email, password, url_address, date) VALUES (:username, :email, :password, :url_address, :date)";
-            $params = array(
-                ':username' => $username,
-                ':email' => $email,
-                ':password' => $hashed_password,
-                ':url_address' => get_random_string_max(60), // Generate a random URL address
-                ':date' => date("Y-m-d H:i:s")
-            );
-
-            $result = $DB->write($query, $params);
-
-            if ($result) {
-                // User successfully registered
-                return ['success' => true, 'redirectUrl' => ROOT . 'intro'];
-            } else {
-                // Error during registration
-                return ['success' => false, 'error' => 'Registration failed, please try again.'];
-            }
-        } else {
-            // Missing required fields
-            return ['success' => false, 'error' => 'Please provide all required fields.'];
-        }
-    }
-        */
     
 }
 ?>

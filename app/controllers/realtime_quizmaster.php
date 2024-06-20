@@ -79,6 +79,20 @@ class Realtime_quizmaster extends Controller{
                 }
                 exit;
             }
+
+             // Update question event
+             if ($_GET['action'] == 'update_quizevent') {
+                $event_id = $_SESSION['event_id']; 
+                $result = $updateMode->update_quizevent($event_id);
+
+                if ($result) {
+                    echo json_encode(['success' => true, 'message' => 'Quiz Event status updated successfully']);
+                    
+                } else {
+                    echo json_encode(['error' => 'Failed to update quiz event status']);
+                }
+                exit;
+            }
         }
 
         // inserting purposes

@@ -201,23 +201,20 @@ class Read{
     public function get_category_and_questions($event_id) {
         $DB = new Database();
     
-        // Fetch all categories related to the event_id
         $categoryQuery = "SELECT id FROM Category WHERE event_id = ?";
         $categoryParams = [$event_id];
         $categories = $DB->read($categoryQuery, $categoryParams);
     
         if (!$categories) {
-            // No categories found for the event_id
+
             return [
                 'debug' => 'No categories found for the event_id'
             ];
         }
     
-        // Extract category IDs
         $categoryIds = array_column($categories, 'id');
         $placeholders = implode(',', array_fill(0, count($categoryIds), '?'));
     
-        // Construct SQL query to fetch questions with status 1 for the found category IDs
         $questionQuery = "
             SELECT 
                 q.id, q.category_id, q.question_type, q.question_image, 
@@ -251,8 +248,7 @@ class Read{
             $username = $POST['username'];
             $password = $POST['password'];
     
-            // Hash the password for comparison
-            $hashed_password = md5($password); // This is a basic example, consider stronger hashing methods
+            $hashed_password = md5($password); 
     
             $query = "SELECT * FROM User_Account WHERE username = :username AND password = :password LIMIT 1";
             $params = array(
@@ -277,213 +273,4 @@ class Read{
         }
     }
     
-
-    /*
-    // get the question the status is 1 and archive is 0 based on category related on it
-    public function get_category_and_questions($event_id) {
-        $DB = new Database();
-
-        // Fetch all categories related to the event_id
-        $categoryQuery = "SELECT id FROM Category WHERE event_id = ?";
-        $categoryParams = [$event_id];
-        $categories = $DB->read($categoryQuery, $categoryParams);
-
-        if (!$categories) {
-            // No categories found for the event_id
-            return ['success' => false, 'message' => 'No categories found for the event ID', 'debug' => 'No categories fetched from the database'];
-        }
-
-        // Extract category IDs
-        $categoryIds = array_column($categories, 'id');
-        $placeholders = implode(',', array_fill(0, count($categoryIds), '?'));
-
-        // Construct SQL query to fetch questions with status 1 for the found category IDs
-        $questionQuery = "
-            SELECT 
-                q.id, q.category_id, q.question_type, q.question_image, 
-                q.correct_answer, q.choice_1, q.choice_2, q.choice_3, q.choice_4, q.timer
-            FROM 
-                Questions q
-            WHERE 
-                q.category_id IN ($placeholders) 
-                AND q.status = 1";
-
-        $questions = $DB->read($questionQuery, $categoryIds);
-
-        if (!$questions) {
-            // No questions found for the category IDs
-            return ['success' => false, 'message' => 'No questions found for the category IDs', 'debug' => 'No questions fetched from the database'];
-        }
-
-        // Include debug information in the response
-        return ['success' => true, 'questions' => $questions, 'debug' => 'Categories and questions fetched successfully'];
-    }
-
-
-
-
-    
-
-     public function get_category_and_questions($event_id) {
-        $DB = new Database();
-    
-        // Fetch all categories related to the event_id
-        $categoryQuery = "SELECT id FROM Category WHERE event_id = ?";
-        $categoryParams = [$event_id];
-        $categories = $DB->read($categoryQuery, $categoryParams);
-    
-        if (!$categories) {
-            // No categories found for the event_id
-            return ["questions" => false, "debug" => [
-                "Event ID" => $event_id,
-                "Category Query" => $categoryQuery,
-                "Category Params" => $categoryParams,
-                "Category Result" => $categories
-            ]];
-        }
-    
-        // Extract category IDs
-        $categoryIds = array_column($categories, 'id');
-        $placeholders = implode(',', array_fill(0, count($categoryIds), '?'));
-    
-        // Construct SQL query to fetch questions with status 1 for the found category IDs
-        $questionQuery = "
-            SELECT 
-                q.id, q.category_id, q.question_type, q.question_image, 
-                q.correct_answer, q.choice_1, q.choice_2, q.choice_3, q.choice_4, q.timer
-            FROM 
-                Questions q
-            WHERE 
-                q.category_id IN ($placeholders) 
-                AND q.status = 1";
-    
-        $questions = $DB->read($questionQuery, $categoryIds);
-    
-        // Prepare debug information
-        $debugInfo = [
-            "Event ID" => $event_id,
-            "Category Query" => $categoryQuery,
-            "Category Params" => $categoryParams,
-            "Category Result" => $categories,
-            "Question Query" => $questionQuery,
-            "Question Params" => $categoryIds,
-            "Questions Result" => $questions
-        ];
-    
-        // Include debug information in the response
-        return ["questions" => $questions, "debug" => $debugInfo];
-    }
-    public function get_category_and_questions($event_id) {
-        $DB = new Database();
-    
-        // First, get all categories related to the event_id
-        $categoryQuery = "SELECT id FROM Category WHERE event_id = ? AND archive = 0";
-        $categoryParams = [$event_id];
-        $categories = $DB->read($categoryQuery, $categoryParams);
-    
-        if (!$categories) {
-            // No categories found for the event_id
-            return ["questions" => false, "debug" => ["Event ID" => $event_id, "Category Query" => $categoryQuery, "Category Params" => $categoryParams, "Category Result" => $categories]];
-        }
-    
-        // Extract category IDs
-        $categoryIds = array_column($categories, 'id');
-        $placeholders = implode(',', array_fill(0, count($categoryIds), '?'));
-    
-        // Construct SQL query to fetch questions with status 1 for the found category IDs
-        $query = "
-            SELECT 
-                q.id, q.category_id, q.question_type, q.question_text, q.question_image, 
-                q.correct_answer, q.choice_1, q.choice_2, q.choice_3, q.choice_4, q.timer
-            FROM 
-                Questions q
-            WHERE 
-                q.category_id IN ($placeholders) 
-                AND q.status = 1";
-    
-        $params = $categoryIds;
-        $questions = $DB->read($query, $params);
-    
-        // Prepare debug information
-        $debugInfo = [
-            "Event ID" => $event_id,
-            "Category Query" => $categoryQuery,
-            "Category Params" => $categoryParams,
-            "Category Result" => $categories,
-            "Question Query" => $query,
-            "Question Params" => $params,
-            "Questions Result" => $questions
-        ];
-    
-        // Include debug information in the response
-        return ["questions" => $questions, "debug" => $debugInfo];
-    }
-    
-    
-    public function get_category_and_questions($event_id) {
-        $DB = new Database();
-        
-        // Construct SQL query to fetch questions with status 1 for the given event_id
-        $query = "
-            SELECT 
-                q.id, q.category_id, q.question_type, q.question_text, q.question_image, 
-                q.correct_answer, q.choice_1, q.choice_2, q.choice_3, q.choice_4, q.timer
-            FROM 
-                Questions q
-            INNER JOIN 
-                Category c ON q.category_id = c.id
-            WHERE 
-                c.event_id = 145 
-                AND q.status = 1";
-        
-        $params = [$event_id];
-        $questions = $DB->read($query, $params);
-        
-        // Prepare debug information
-        $debugInfo = [
-            "Event ID" => $event_id,
-            "Query" => $query,
-            "Query Params" => $params,
-            "Questions Result" => $questions
-        ];
-
-        // Include debug information in the response
-        return ["questions" => $questions, "debug" => $debugInfo];
-    }
-    
-    
-    
-    
-    
-    public function get_category_and_questions($event_id) {
-        $DB = new Database();
-    
-        try {
-            // SQL query to fetch questions based on category and status conditions
-            $query = "
-                SELECT q.*
-                FROM Question q
-                INNER JOIN Category c ON q.category_id = c.id
-                WHERE c.event_id = :event_id
-                AND q.status = 1
-                AND q.archive = 0
-            ";
-    
-            // Parameters for the prepared statement
-            $params = [
-                ':event_id' => $event_id
-            ];
-    
-            // Execute the read method from Database class
-            $questions = $DB->read($query, $params);
-    
-            // Return the fetched questions
-            return $questions;
-        } catch (PDOException $e) {
-            // Handle database errors
-            echo "Error: " . $e->getMessage();
-            return []; // Return an empty array or handle the error as needed
-        }
-    }
-    */
 }

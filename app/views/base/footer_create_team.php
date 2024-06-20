@@ -2,10 +2,20 @@
     <!-- Footer content can be added here -->
 </footer>
 </body>
+    <!-- Important -->
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/jquery/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/bootstrap/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/popper.min.js"></script>
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/socket/socket.io.js"></script>
+
 <script>
+
+    let socket = io('http://localhost:3000', {transports: ['websocket', 'polling', 'flashsocket'] });
+
     function updateMemberFields(memberCount) {
         const memberFieldsContainer = document.getElementById('memberFields');
-        memberFieldsContainer.innerHTML = ''; // Clear existing fields
+        memberFieldsContainer.innerHTML = ''; 
 
         for (let i = 1; i <= memberCount; i++) {
             const inputGroup = document.createElement('div');
@@ -94,6 +104,7 @@
                 if (response.success) {
                     //alert('Team saved successfully!');
                     //window.location.reload();
+                    //socket.emit('updateTeamScore', member);
 
                     document.getElementById('loading').style.display = 'flex';
                     
@@ -126,7 +137,4 @@
     }
 
 </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>
