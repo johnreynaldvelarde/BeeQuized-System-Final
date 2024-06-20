@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('form-container').style.display = 'block';
             document.getElementById('form-container').classList.add('fade-in');
         }, 500); 
-    }, 500);
+    }, 3000);
 
     <?php if (isset($_SESSION['error']) && !empty($_SESSION['error'])): ?>
         $('#errorModal').modal('show');

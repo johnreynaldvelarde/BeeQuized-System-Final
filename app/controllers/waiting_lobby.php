@@ -17,7 +17,7 @@ class Waiting_lobby extends Controller{
             // get quiz master list based on event_id
             if($_GET['action'] == 'get_quiz_master'){
 
-                $event_id = $_SESSION['event_id']; // Assuming event_id is stored in session
+                $event_id = $_SESSION['event_id']; 
                 $quiz_masters = $detailLobby->get_quiz_masters($event_id);
                 echo json_encode($quiz_masters);
                 exit; 
@@ -25,7 +25,7 @@ class Waiting_lobby extends Controller{
 
             if($_GET['action'] == 'get_teams'){
 
-                $event_id = $_SESSION['event_id']; // Assuming event_id is stored in session
+                $event_id = $_SESSION['event_id']; 
                 $teams = $detailLobby->get_teams($event_id);
                 echo json_encode($teams);
                 exit; 
