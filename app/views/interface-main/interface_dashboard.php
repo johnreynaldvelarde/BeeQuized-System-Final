@@ -66,22 +66,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body ">
                 <form id="createQuizForm" method="post">
-                    <div class="form-group">
-                        <label for="quizTitle">Quiz Bee Event Title</label>
+                    <div class="form-group mb-3">
+                        <label for="quizTitle" class="form-label">BeeQuized Event Title</label>
                         <input name="quizTitle" type="text" class="form-control" id="quizTitle" required>
                     </div>
-                    <div class="form-group">
-                        <label for="quizMasterCode">QuizMaster Code</label>
+                    <div class="form-group mb-3">
+                        <label for="quizMasterCode" class="form-label">QuizMaster Code</label>
                         <input name="quizMasterCode" type="text" class="form-control" id="quizMasterCode" readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="participantCode">Participant Code</label>
+                    <div class="form-group mb-3">
+                        <label for="participantCode" class="form-label">Participant Code</label>
                         <input name="participantCode" type="text" class="form-control" id="participantCode" readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="audienceCode">Audience Code</label>
+                    <div class="form-group mb-3">
+                        <label for="audienceCode" class="form-label">Audience Code</label>
                         <input name="audienceCode" type="text" class="form-control" id="audienceCode" readonly>
                     </div>
 

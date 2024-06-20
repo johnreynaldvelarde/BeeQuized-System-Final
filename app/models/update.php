@@ -21,6 +21,8 @@ class Update {
 
         if($data){
 
+            unset($_SESSION['event_id']);
+
             echo json_encode(["success" => true]);
             return;
 

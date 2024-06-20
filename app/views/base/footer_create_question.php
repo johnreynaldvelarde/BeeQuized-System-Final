@@ -589,7 +589,7 @@
                     if (response.success) {
 
                         setTimeout(function() { 
-                            window.location.href = "<?php echo ROOT . 'waiting_lobby'; ?>";
+                            window.location.href = "<?php echo ROOT . 'get_code'; ?>";
                         }, 1000);
                     } else {
                         console.error('Error updating quiz event status:', response.error);
