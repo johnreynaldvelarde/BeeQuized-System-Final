@@ -58,7 +58,7 @@
 
 <!-- Create Quiz Modal -->
 <div class="modal fade" id="createQuizModal" tabindex="-1" role="dialog" aria-labelledby="createQuizModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="createQuizModalLabel">Create Quiz</h5>
@@ -84,8 +84,12 @@
                         <label for="audienceCode">Audience Code</label>
                         <input name="audienceCode" type="text" class="form-control" id="audienceCode" readonly>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="generateCodes()">Generate Codes</button>
-                    <button type="submit" class="btn btn-success mt-2">Create Quiz</button>
+
+                    <div class="modal-footer mt-4">
+                        <button type="button" class="btn btn-primary float-left" onclick="generateCodes()">Generate Codes</button>
+                        <button type="submit" class="btn btn-success float-right">Create Quiz</button>
+                    </div>
+                    
                 </form>
             </div>
         </div>

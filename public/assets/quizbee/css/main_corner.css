@@ -12545,7 +12545,8 @@ fieldset:disabled .btn {
 }
 
 .hero-section {
-  background: linear-gradient(to right, #2d388a, #00aeef);;
+  background: linear-gradient(to right, #2d388a, #00aeef);; 
+  /*background: #69e9c7; */
   padding: 50px 0;
   position: relative;
   overflow: hidden;
@@ -12659,6 +12660,12 @@ fieldset:disabled .btn {
   padding: 20px;
   background: white;
   z-index: 2;
+}
+
+/* Custom CSS to remove border around close button */
+.modal-header .close {
+  outline: none;
+  border: none;
 }
 
 
