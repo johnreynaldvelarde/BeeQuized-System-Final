@@ -139,11 +139,11 @@
                     <!-- Clear button -->
                     <button class="btn btn-outline-secondary" onclick="clearQuestion()">Clear</button>
             </div>
-                    <!-- Submit and Cancel buttons -->
-                    <div class="d-flex justify-content-end">
-                        <button id="cancelButton" class="btn btn-secondary me-2"  style="display: none;" onclick="cancelCreation()">Cancel</button>
-                        <button id="submitButton" class="btn btn-primary"  style="display: none;" onclick="proceed()">Proceed</button>
-                    </div>
+                <!-- Submit and Cancel buttons -->
+                <div class="d-flex justify-content-end">
+                    <button id="cancelButton" class="btn btn-secondary btn-floating me-2" style="display: none;" onclick="cancelCreation()">Cancel</button>
+                    <button id="submitButton" class="btn btn-primary btn-floating" style="display: none;" onclick="proceed()">Proceed</button>
+                </div>
         </div>
         
         <!-- Third Column -->

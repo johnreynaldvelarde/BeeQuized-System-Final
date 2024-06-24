@@ -4,7 +4,7 @@ Class Createteam extends Controller{
 
     function index()
     {
-        $data['page_title'] = "Create a team";
-        $this->view("interface-code/audiance", $data);
+        $data['page_title'] = "Event Leaderboard";
+        $this->view("interface-main/realtime_audiance", $data);
     }
 }

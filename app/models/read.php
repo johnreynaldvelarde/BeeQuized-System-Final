@@ -82,7 +82,7 @@ class Read{
                     $response['redirectUrl'] = ROOT . "create_team";
                 } else {
                     $response['success'] = true;
-                    $response['redirectUrl'] = ROOT . "view_audience";
+                    $response['redirectUrl'] = ROOT . "realtime_audiance";
                 }
             } else {
                 $response['error'] = "Code not found or BeeQuized event has already finished.";
@@ -271,6 +271,35 @@ class Read{
         } else {
             return ['success' => false, 'error' => 'Please enter username and password'];
         }
+    }
+
+    public function get_leaderboard($event_id) {
+        $DB = new Database();
+    
+        // Query to retrieve team names and their total scores for the specific event
+        $query = "
+            SELECT t.team_name, COALESCE(SUM(ts.score), 0) AS total_score
+            FROM Team t
+            LEFT JOIN Team_Score ts ON t.id = ts.team_id
+            WHERE t.event_id = :event_id
+            GROUP BY t.id, t.team_name
+            ORDER BY total_score DESC
+        ";
+    
+        // Parameters for the query
+        $params = [
+            ':event_id' => $event_id
+        ];
+    
+        // Execute the query
+        $leaderboard = $DB->read($query, $params);
+    
+        // Check if there are results
+        if (!$leaderboard) {
+            return "No team participants yet."; 
+        }
+    
+        return $leaderboard;
     }
     
 }

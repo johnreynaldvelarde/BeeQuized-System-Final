@@ -7,6 +7,7 @@
     <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/popper.min.js"></script>
     <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/socket/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- Include jsPDF for PDF generation -->
     <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/jspdf.umd.min.js"></script>
@@ -606,8 +607,31 @@
 
 
         document.getElementById('finishEventBtn').addEventListener('click', function() {
-            fetchUpdateQuizEvent();
+
+            let canvas = document.createElement("canvas");
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight; 
+
+            canvas.style.position = 'fixed';
+            canvas.style.top = '0';
+            canvas.style.left = '0';
+            canvas.style.zIndex = '1000'; 
+
+            document.body.appendChild(canvas);
+
+            let confetti_button = confetti.create(canvas);
+            confetti_button({
+                particleCount: 600,
+                spread: 600,
+                startVelocity: 30,
+                scalar: 0.9,
+                ticks: 100
+            }).then(() => {
+                document.body.removeChild(canvas);
+                fetchUpdateQuizEvent();
+            });
         });
+
 
         
 </script>

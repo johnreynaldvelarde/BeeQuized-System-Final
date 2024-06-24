@@ -14,7 +14,7 @@ class Realtime_quizmaster extends Controller{
         if (isset($_SESSION['event_id'])) {
             $data['event_id'] = $_SESSION['event_id']; 
         } else {
-            $_SESSION['error'] = "No event ID provided.";
+            $_SESSION['error'] = "No event ID prsasasaovided.";
             header("Location: " . ROOT . "error_page"); 
             exit;
         }

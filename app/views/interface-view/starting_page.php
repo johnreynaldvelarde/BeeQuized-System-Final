@@ -1,4 +1,19 @@
-<?php $this->view("base/header",$data);?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?=$data['page_title'] . " | " . "Quiz Bee System"?></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="<?=ASSETS?>quizbee/css/main_corner.css" />
+    <link rel="stylesheet" href="<?=ASSETS?>quizbee/css/index-style.css" />
+    
+</head>
+
+<body style="min-height: 100vh; display: flex; flex-direction: column; background: linear-gradient(to right, #2d388a, #00aeef), url('<?= ASSETS ?>quizbee/images/7941359.jpg'); background-blend-mode: multiply; background-size: cover;">
 
     <div class="d-flex align-items-center justify-content-center vh-100">
         
@@ -19,70 +34,53 @@
         <!-- Initially hidden, shown after 5 seconds -->
         <div id="form-container" class="row mt-4 justify-content-center fade-form" style="display: none;">
             <div class="col-md-6">
-                <div class="containers">
-                    <h1 class="text-center mb-4" style="color: grey;">BeeQuized System</h1>
-                    <form method="post" id="getcode-form" class="input-code">
-                        <div class="input-group">
-                            <input type="text" id="getcode" name="getcode" class="form-control form-control-lg" placeholder="Enter your code" required>
-                            <div class="input-group-append">
-                                <button type="button" class="btn btn-primary btn-lg" onclick="readEvent()">Enter Code</button>
+                    <div class="containers" style="background: linear-gradient(to right, #6454F0, #3499FF), url('<?= ASSETS ?>quizbee/images/rough_background.jpg'); background-blend-mode: multiply; background-size: cover; padding: 50px; border-radius: 10px;">
+                        <h1 class="text-center mb-4" style="color: white; font-weight: 600; margin-top: 30px;">Welcome to BeeQuized</h1>
+                        <form method="post" id="getcode-form" class="input-code">
+                            <div class="input-group mb-3">
+                                <input type="text" id="getcode" name="getcode" class="form-control form-control-lg" placeholder="Enter your code" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary btn-lg floating-btn" onclick="readEvent()">Enter Code</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-center mt-3">
-                            <span class="or">or</span>
-                        </div>
-                        <div class="text-center mt-3">
-                            <a href="#" class="btn btn-success btn-lg" onclick="openLogin()">Login</a>
-                        </div>
-                        <br>
-                        <?php check_message()?>
-                    </form>
+                            <div class="text-center mt-3">
+                                <span class="or" style="color: white; font-weight: 600;">or</span>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="#" class="btn btn-success btn-lg floating-btn" onclick="openLogin()">Login</a>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-        <!-- Login Popup -->
         <div id="login-popup" class="popup">
-        <div class="popup-content">
-            <span class="close" onclick="closeLogin()">&times;</span>
-            <h2>BeeQuized System</h2>
-            <div class="button-box">
-            <div id="btn"></div>
-            <button
-                type="button"
-                class="toggle-btn"
-                data-form="login-form"
-                onclick="toggleForm('login-form')"
-            >
-                Log In
-            </button>
-            <button
-                type="button"
-                class="toggle-btn"
-                data-form="registration-form"
-                onclick="toggleForm('registration-form')"
-            >
-                Register
-            </button>
+            <div class="popup-content">
+                <span class="close" onclick="closeLogin()">&times;</span>
+                <h2 id="popup-header" style="font-weight: 900; background: linear-gradient(to right, #2d388a, #00aeef); -webkit-background-clip: text; color: transparent;">Welcome to BeeQuized</h2>
+                <div class="button-box">
+                    <div id="btn"></div>
+                    <button type="button" class="toggle-btn" data-form="login-form" onclick="toggleForm('login-form')">Log In</button>
+                    <button type="button" class="toggle-btn" data-form="registration-form" onclick="toggleForm('registration-form')">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form method="post" id="login-form" class="input-login" style="display: none">
+                    <input type="text" id="login-username" name="username" class="input-popup" placeholder="Username" required />
+                    <input type="password" id="login-password" name="password" class="input-popup" placeholder="Password" required />
+                    <button type="button" class="login-btn" onclick="login()">Login</button>
+                </form>
+
+                <!-- Registration Form -->
+                <form method="post" id="registration-form" class="input-register" style="display: none">
+                    <input type="text" id="username" name="username" class="input-popup" placeholder="Username" required />
+                    <input type="email" id="email" name="email" class="input-popup" placeholder="Email" required />
+                    <input type="password" id="password" name="password" class="input-popup" placeholder="Password" required />
+                    <button type="button" class="register-btn" onclick="register()">Register</button>
+                </form>
             </div>
-
-            <!-- Login Form -->
-            <!-- Login Form -->
-            <form method="post" id="login-form" class="input-login" style="display: none">
-                <input type="text" id="login-username" name="username" class="input-popup" placeholder="Username" required />
-                <input type="password" id="login-password" name="password" class="input-popup" placeholder="Password" required />
-                <button type="button" class="login-btn" onclick="login()">Login</button>
-            </form>
-
-            <!-- Registration Form -->
-            <form method="post" id="registration-form" class="input-register" style="display: none">
-                <input type="text" id="username" name="username" class="input-popup" placeholder="Username" required />
-                <input type="email" id="email" name="email" class="input-popup" placeholder="Email" required />
-                <input type="password" id="password" name="password" class="input-popup" placeholder="Password" required />
-                <button type="button" class="register-btn" onclick="register()">Register</button>
-            </form>
-        </div>
         </div>
         <!-- Overlay -->
         <div id="overlay" class="overlay"></div>
@@ -124,6 +122,7 @@
             </div>
         </div>
     </div>
-</div
+</div>
+</body>
     
 <?php $this->view("base/footer",$data);?>

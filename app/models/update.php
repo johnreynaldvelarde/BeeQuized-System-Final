@@ -64,7 +64,7 @@ class Update {
         $DB = new Database();
     
         // Update query
-        $query = "UPDATE Quiz_Event SET status = 3 WHERE id = :event_id";
+        $query = "UPDATE Quiz_Event SET status = 2 WHERE id = :event_id";
         $params = [':event_id' => $event_id];
     
         // Execute the update query

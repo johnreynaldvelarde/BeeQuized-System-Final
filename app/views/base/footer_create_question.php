@@ -3,6 +3,13 @@
 </footer>
 </div>
 </body>
+     <!-- Important -->
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/jquery/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/popper.min.js"></script>
+    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/socket/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 <script>
     
     // list add category
@@ -336,144 +343,6 @@
         xhr.send(formData);
     }
 
-    /*
-    function createQuestion() {
-
-        const choice1 = document.getElementById('choice1').value.trim();
-        const choice2 = document.getElementById('choice2').value.trim();
-        const choice3 = document.getElementById('choice3').value.trim();
-        const choice4 = document.getElementById('choice4').value.trim();
-        const timer = document.getElementById('timer').value.trim();
-        var imageInput = document.getElementById('questionImage');
-
-        const selectedCategoryId = document.getElementById('selectedCategoryId').value;
-
-        if (timer === '') {
-            document.getElementById('timer').style.borderColor = 'red'; 
-        } else {
-            document.getElementById('timer').style.borderColor = ''; 
-        }
-
-        if (imageInput.files.length === 0) {
-            document.getElementById('imageInputBox').style.borderColor = 'red';
-        } else {
-            document.getElementById('imageInputBox').style.borderColor = '';
-        }
-
-        const questionType = document.querySelector('input[name="questionType"]:checked').value;
-        if (questionType === 'multipleChoice') {
-
-            if (choice1 === '') {
-                document.getElementById('choice1').style.borderColor = 'red'; 
-            } else {
-                document.getElementById('choice1').style.borderColor = ''; 
-            }
-            if (choice2 === '') {
-                document.getElementById('choice2').style.borderColor = 'red'; 
-            } else {
-                document.getElementById('choice2').style.borderColor = ''; 
-            }
-            if (choice3 === '') {
-                document.getElementById('choice3').style.borderColor = 'red';
-            } else {
-                document.getElementById('choice3').style.borderColor = ''; 
-            }
-            if (choice4 === '') {
-                document.getElementById('choice4').style.borderColor = 'red'; 
-            } else {
-                document.getElementById('choice4').style.borderColor = ''; 
-            }
-
-            // Check for empty fields for multiple choice questions
-            if (choice1 === '' || choice2 === '' || choice3 === '' || choice4 === '' || timer === '') {
-                alert('Please fill out all fields.'); // display an alert message
-                return;
-            }
-
-        } else if (questionType === 'essay') {
-            
-            const essayAnswer = document.getElementById('essayAnswer').value.trim();
-            if (essayAnswer === '') {
-                document.getElementById('essayAnswer').style.borderColor = 'red'; 
-            } else {
-                document.getElementById('essayAnswer').style.borderColor = ''; 
-            }
-
-            if (essayAnswer === '') {
-                alert('Please fill out all fields.'); 
-                return;
-            }
-
-        } else if (questionType === 'trueFalse') {
-
-            const trueFalseAnswer = document.querySelector('input[name="trueFalseAnswer"]:checked');
-            if (!trueFalseAnswer) {
-                alert('Please fill out all fields.'); 
-                return;
-            }
-        }
-
-        if (essayAnswer === '' || imageInput.files.length === 0 ) {
-                alert('Please fill out all fields.'); 
-                return;
-        }
-
-        let formData = new FormData();
-        formData.append('selectedCategoryId', selectedCategoryId);
-        formData.append('questionType', questionType);
-        formData.append('timer', timer);
-        formData.append('correctAnswer', correctAnswer);
-        formData.append('action', 'add_question');
-
-
-        if (imageInput.files.length > 0) {
-            formData.append('file', imageInput.files[0]);
-        }
-
-        if (questionType === 'multipleChoice') {
-            formData.append('choice1', document.getElementById('choice1').value.trim());
-            formData.append('choice2', document.getElementById('choice2').value.trim());
-            formData.append('choice3', document.getElementById('choice3').value.trim());
-            formData.append('choice4', document.getElementById('choice4').value.trim());
-        } else if (questionType === 'essay') {
-            formData.append('essayAnswer', document.getElementById('essayAnswer').value.trim());
-        } else if (questionType === 'trueFalse') {
-            formData.append('trueFalseAnswer', document.querySelector('input[name="trueFalseAnswer"]:checked').value);
-        }
-
-        const correctAnswerIndicator = document.querySelector('.correct-indicator.checked');
-        if (!correctAnswerIndicator) {
-            // If no correct answer is indicated, alert the user
-            alert('Please indicate the correct answer.');
-            return; // Stop further execution of the function
-        }
-
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'index.php?url=create_question', true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-
-                if (response.success) {
-
-                    const selectedCategoryId = document.getElementById('selectedCategoryId').value;
-                    showQuestionList(selectedCategoryId); 
-
-                    clearQuestion();
-                    console.log('Question added successfully!');
-
-                } else {
-                    console.error('Error adding question: 1', response.error);
-                }
-            } else {
-                console.error('Error adding question: 2', xhr.statusText);
-            }
-        };
-
-        xhr.send(formData);
-    }
-        */
-
     let selectedCategory = null;
 
     // select the category
@@ -510,8 +379,6 @@
     // show question list
     function showQuestionList(categoryId) {
 
-        //console.log('update questions');
-
         const xhr = new XMLHttpRequest();
         xhr.open('GET', `index.php?url=create_question&action=view_all_question&category_id=${categoryId}`, true);
 
@@ -525,7 +392,6 @@
 
                     if (responseData === 'false') {
                         const noQuestionsMessage = document.createElement('p');
-                        //noQuestionsMessage.textContent = 'No questions available for the selected category.';
                         questionList.appendChild(noQuestionsMessage);
                         console.log('No questions available for the selected category.');
                         return;
@@ -555,7 +421,6 @@
                             item.classList.add('question-animation');
                         });
 
-                        //console.log('Question list updated successfully!');
                     } else {
                         console.error('Invalid JSON data:', questions);
                     }
@@ -570,12 +435,13 @@
         xhr.send();
     }
 
-   
 
     function proceed() {
 
-        document.getElementById('loading').style.display = 'flex';
+        showConfetti();
 
+        //document.getElementById('loading').style.display = 'flex';
+        
         const formData = new FormData();
         formData.append('action', 'update_quiz_event'); 
 
@@ -589,8 +455,8 @@
                     if (response.success) {
 
                         setTimeout(function() { 
-                            window.location.href = "<?php echo ROOT . 'get_code'; ?>";
-                        }, 1000);
+                            window.location.href = "<?php echo ROOT . 'controller_main'; ?>";
+                        }, 3000);
                     } else {
                         console.error('Error updating quiz event status:', response.error);
                     }
@@ -608,61 +474,31 @@
         };
 
         xhr.send(formData);
+        
     }
 
-     // clear question
-     /*
-     function clearQuestionVersionOne() {
-        // Clear the input fields
-        document.getElementById('choice1').value = '';
-        document.getElementById('choice2').value = '';
-        document.getElementById('choice3').value = '';
-        document.getElementById('choice4').value = '';
-        document.getElementById('timer').value = '';
+    function showConfetti() {
+        let canvas = document.createElement("canvas");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = '1000';
+        document.body.appendChild(canvas);
 
-        // Clear the input field for essay
-        document.getElementById('essayAnswer').value = '';
-
-        // Reset the radio buttons for true/false
-        document.getElementById('trueFalseAnswerTrue').checked = false;
-        document.getElementById('trueFalseAnswerFalse').checked = false;
-
-        // Reset the border color of input fields (if they were highlighted)
-        document.getElementById('choice1').style.borderColor = '';
-        document.getElementById('choice2').style.borderColor = '';
-        document.getElementById('choice3').style.borderColor = '';
-        document.getElementById('choice4').style.borderColor = '';
-        document.getElementById('timer').style.borderColor = '';
-
-        // Clear the image input
-        var imageInput = document.getElementById('questionImage');
-        imageInput.value = ''; 
-        document.getElementById('questionImagePreview').src = '';
-        document.getElementById('questionImagePreview').style.display = 'none';
-        document.getElementById('questionImageLabel').style.display = 'block';
-
-        document.getElementById('imageInputBox').style.borderColor = '';
-
-        // Clear the correct answer indicator and border
-        document.querySelectorAll('.correct-indicator').forEach(ind => {
-            ind.classList.remove('checked');
+        let confettiButton = confetti.create(canvas);
+        confettiButton({
+            particleCount: 600,
+            spread: 600,
+            startVelocity: 30,
+            scalar: 0.9,
+            ticks: 100
+        }).then(() => {
+            document.body.removeChild(canvas);
         });
-        document.querySelectorAll('.form-control').forEach(input => {
-            input.classList.remove('correct-answer');
-        });
-
-        // Clear the correctAnswer variable
-        correctAnswer = '';
     }
-    */
-    
 </script>
-
-     <!-- Important -->
-    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/jquery/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="<?=ASSETS?>quizbee/scripts/popper.min.js"></script>
-
 </html>
 
 

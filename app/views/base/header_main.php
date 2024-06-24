@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?=ASSETS?>quizbee/css/dashboard_style.css" />
   
 </head>
-<body class="size-1140" >
+<body style="min-height: 100vh; display: flex; flex-direction: column; column; background: linear-gradient(to right, #2d388a, #00aeef), url('<?= ASSETS ?>quizbee/images/5816206.jpg'); background-blend-mode: multiply; background-size: cover;">
    <div id="page-wrapper">
     <header role="banner" class="position-absolute margin-top-30 margin-m-top-0 margin-s-top-0">
       <nav class="navbar navbar-expand-lg fixed-top">

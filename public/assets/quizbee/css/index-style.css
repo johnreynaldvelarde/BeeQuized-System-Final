@@ -89,7 +89,7 @@ h2 {
 }
 
 .popup-content {
-  height: 530px;
+  height: 550px;
   width: 550px;
   background: #fff;
   padding: 20px;
@@ -139,7 +139,7 @@ h2 {
   position: absolute;
   width: 110px;
   height: 100%;
-  background: linear-gradient(to right, #93e6c1, #50a7c2);
+  background: linear-gradient(to right, #2d388a, #00aeef);
   border-radius: 30px;
   transition: 0.5s;
 }
@@ -177,14 +177,20 @@ h2 {
   cursor: pointer;
   display: block;
   margin: auto;
-  background: linear-gradient(to right, #93e6c1, #50a7c2);
+  background: linear-gradient(to right, #2d388a, #00aeef);
   border: 0;
   outline: none;
-  border-radius: 30px;
+  border-radius: 10px;
   margin-top: 40px;
   font-size: 20px;
   color: white;
   font-weight: bolder;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+}
+
+.login-btn:hover {
+  transform: translateY(-5px);
 }
 
 .register-btn {
@@ -193,15 +199,21 @@ h2 {
   cursor: pointer;
   display: block;
   margin: auto;
-  background: linear-gradient(to right, #93e6c1, #50a7c2);
+  background: linear-gradient(to right, #2d388a, #00aeef);
   border: 0;
   outline: none;
-  border-radius: 30px;
-  margin-top: 25px;
+  border-radius: 10px;
+  margin-top: 20px;
   font-size: 20px;
   color: white;
   font-weight: bolder;
-  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s;
+  
+}
+
+.register-btn:hover {
+  transform: translateY(-5px);
 }
 
 .submit-btn1 {
@@ -268,7 +280,6 @@ input[type="password"] {
 *{
     margin: 0;
     padding: 0;
-    font-family: "Quicksand", sans-serif;
 }
 
 
@@ -287,6 +298,7 @@ ul li{
     background: #ebe1fa;
     color: rgb(61, 61, 61);
     font-size: 50px;
+    font-weight: 600;
     width: 70px;
     height: 110px;
     line-height: 110px;
@@ -331,3 +343,13 @@ ul li{
 .fade-in {
   opacity: 1;
 }
+
+.floating-btn {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
+.floating-btn:hover {
+  transform: translateY(-5px);
+}
+

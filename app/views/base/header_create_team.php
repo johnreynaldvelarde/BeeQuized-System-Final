@@ -12,4 +12,4 @@
     <link rel="stylesheet" href="<?=ASSETS?>quizbee/css/mode_style.css" />
   
 </head>
-<body style="min-height: 100vh; display: flex; flex-direction: column; column; background: linear-gradient(to right, #2d388a, #00aeef);">
+<body style="min-height: 100vh; display: flex; flex-direction: column; column; background: linear-gradient(to right, #2d388a, #00aeef), url('<?= ASSETS ?>quizbee/images/18394.jpg'); background-blend-mode: multiply; background-size: cover;">

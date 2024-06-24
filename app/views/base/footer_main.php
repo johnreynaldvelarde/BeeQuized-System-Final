@@ -48,6 +48,26 @@
         };
         xhr.send(formData);
     });
+
+    function edit(){
+
+        console.log('Editing...');
+
+    }
+
+    function join(){
+
+        console.log('Joining...');
+
+    }
+    
+    function visit(){
+
+        // Add your logic for the visit action here
+        console.log('Visiting...');
+        // Example: Redirect to visit page
+       // window.location.href = "<?php echo ROOT . 'visit-url'; ?>";
+    }
     
 </script>
 </html>

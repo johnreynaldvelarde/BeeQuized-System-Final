@@ -34,7 +34,7 @@
                                             }
                                         ?>
                                     </p>
-                                    <button class="btn btn-success">
+                                    <button class="btn btn-success" <?php if ($row->status == 0) echo 'onclick="edit()"'; elseif ($row->status == 1) echo 'onclick="join()"'; elseif ($row->status == 2) echo 'onclick="visit()"'; ?>>
                                         <?php
                                             if ($row->status == 0) {
                                                 echo "Edit";
